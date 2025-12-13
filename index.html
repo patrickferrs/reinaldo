@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIEGO ROX - Rota Brasil | Clube de Benefícios e Proteção Veicular</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #00D4AA;
+            --primary-dark: #00B894;
+            --primary-light: #55EFC4;
+            --accent: #00CEC9;
+            --gold: #FDCB6E;
+            --black: #0A0A0A;
+            --dark: #111111;
+            --gray-dark: #1A1A1A;
+            --gray: #2D2D2D;
+            --gray-light: #3D3D3D;
+            --white: #FFFFFF;
+            --silver: #B8B8B8;
+            --text-muted: #888888;
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* === TOP BAR === */
+        .top-bar {
+            background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .top-bar::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
+        }
+        
+        .top-bar span {
+            color: var(--black);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* === HEADER === */
+        header {
+            min-height: 100vh;
+            background: var(--black);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,212,170,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(0,206,201,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 30% at 10% 80%, rgba(0,184,148,0.08) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+        
+        .header-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* DIEGO ROX Badges */
+        .diego-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 50px;
+            letter-spacing: 2px;
+            position: absolute;
+            box-shadow: 0 4px 20px rgba(0,212,170,0.4);
+            animation: float 4s ease-in-out infinite;
+            z-index: 10;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .diego-badge:nth-child(1) { top: 100px; left: 8%; animation-delay: 0s; }
+        .diego-badge:nth-child(2) { top: 100px; right: 8%; animation-delay: 0.5s; }
+        .diego-badge:nth-child(3) { top: 200px; left: 50%; transform: translateX(-50%); animation-delay: 1s; }
+        .diego-badge:nth-child(4) { top: 380px; left: 5%; animation-delay: 1.5s; }
+        .diego-badge:nth-child(5) { top: 380px; right: 5%; animation-delay: 2s; }
+        
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--silver);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.2s;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .main-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(48px, 10vw, 100px);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.4s;
+        }
+        
+        .main-headline .white {
+            color: var(--white);
+            display: block;
+        }
+        
+        .main-headline .gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+        
+        .sub-headline {
+            font-size: 18px;
+            color: var(--silver);
+            max-width: 600px;
+            margin-bottom: 40px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.6s;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--black);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 18px 40px;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 30px rgba(0,212,170,0.3);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.8s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0,212,170,0.5);
+        }
+        
+        /* === SECTIONS === */
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+        }
+        
+        .section-title h2 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* === METRICS === */
+        .metrics-section {
+            background: var(--dark);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(145deg, var(--gray-dark) 0%, var(--gray) 100%);
+            border: 1px solid rgba(0,212,170,0.1);
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0,212,170,0.3);
+        }
+        
+        .metric-card:hover::before { opacity: 1; }
+        
+        .metric-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 52px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: var(--silver);
+            font-weight: 500;
+        }
+        
+        /* === BENEFITS === */
+        .benefits-section {
+            background: var(--black);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .benefit-card {
+            background: rgba(26,26,26,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 35px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .benefit-card::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(0,212,170,0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0,212,170,0.2);
+        }
+        
+        .benefit-card:hover::after { opacity: 1; }
+        
+        .benefit-icon {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+        
+        .benefit-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        /* === COMPARISON TABLE === */
+        .comparison-section {
+            background: var(--dark);
+        }
+        
+        .comparison-table {
+            background: var(--gray-dark);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .table-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 20px 30px;
+        }
+        
+        .table-header span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--black);
+            text-align: center;
+        }
+        
+        .table-header span:first-child { text-align: left; }
+        
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.3s ease;
+        }
+        
+        .table-row:last-child { border-bottom: none; }
+        
+        .table-row:hover { background: rgba(0,212,170,0.05); }
+        
+        .table-row span {
+            font-size: 15px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .table-row span:first-child {
+            text-align: left;
+            justify-content: flex-start;
+            color: var(--silver);
+        }
+        
+        .check { color: var(--primary); font-size: 24px; }
+        .cross { color: #E74C3C; font-size: 20px; }
+        
+        /* === FAQ === */
+        .faq-section {
+            background: var(--black);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--gray-dark);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover { border-color: rgba(0,212,170,0.2); }
+        
+        .faq-question {
+            padding: 24px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .faq-question:hover { background: rgba(0,212,170,0.05); }
+        
+        .faq-question h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+        }
+        
+        .faq-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-weight: 700;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 30px 24px;
+        }
+        
+        .faq-answer p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        
+        /* === CONSULTANT === */
+        .consultant-section {
+            background: linear-gradient(180deg, var(--dark) 0%, var(--black) 100%);
+            text-align: center;
+        }
+        
+        .consultant-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .consultant-title span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .consultant-text {
+            font-size: 16px;
+            color: var(--silver);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .consultant-contact {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gray-dark);
+            border: 1px solid rgba(0,212,170,0.2);
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            background: rgba(0,212,170,0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* === CORPORATE INFO === */
+        .corporate-section {
+            background: var(--gray-dark);
+            padding: 60px 20px;
+        }
+        
+        .corporate-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .corporate-item h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        
+        .corporate-item p {
+            font-size: 14px;
+            color: var(--silver);
+            line-height: 1.8;
+        }
+        
+        .corporate-item a {
+            color: var(--silver);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .corporate-item a:hover { color: var(--primary); }
+        
+        /* === FOOTER === */
+        footer {
+            background: var(--black);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .footer-company {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        
+        .footer-copyright {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+        }
+        
+        /* === RESPONSIVE === */
+        @media (max-width: 1024px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .corporate-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar { gap: 15px; font-size: 10px; padding: 10px 15px; }
+            .top-bar span { font-size: 10px; }
+            
+            .diego-badge { font-size: 9px; padding: 6px 14px; }
+            .diego-badge:nth-child(1) { top: 80px; left: 5%; }
+            .diego-badge:nth-child(2) { top: 80px; right: 5%; }
+            .diego-badge:nth-child(3) { top: 150px; }
+            .diego-badge:nth-child(4) { top: 320px; left: 3%; }
+            .diego-badge:nth-child(5) { top: 320px; right: 3%; }
+            
+            .metrics-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .metric-card { padding: 25px 15px; }
+            .metric-number { font-size: 36px; }
+            
+            .benefits-grid { grid-template-columns: 1fr; }
+            
+            .table-header, .table-row { grid-template-columns: 1.5fr 1fr 1fr; padding: 15px 20px; }
+            .table-header span, .table-row span { font-size: 12px; }
+            
+            .corporate-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            
+            section { padding: 60px 15px; }
+        }
+        
+        @media (max-width: 480px) {
+            .top-bar { flex-direction: column; gap: 8px; }
+            .diego-badge:nth-child(3) { display: none; }
+            .consultant-contact { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <span>🛡️ Proteção Veicular Completa</span>
+        <span>✅ +5.000 Associados Ativos</span>
+        <span>💰 Economia de até 70% vs Seguradoras</span>
+        <span>⭐ 4.9/5.0 Avaliação</span>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="header-bg"></div>
+        <div class="grid-overlay"></div>
+        
+        <!-- DIEGO ROX Badges - 5 posições -->
+        <div class="diego-badge">DIEGO ROX</div>
+        <div class="diego-badge">DIEGO ROX</div>
+        <div class="diego-badge">DIEGO ROX</div>
+        <div class="diego-badge">DIEGO ROX</div>
+        <div class="diego-badge">DIEGO ROX</div>
+        
+        <div class="header-content">
+            <p class="logo-text">Rota Brasil</p>
+            <h1 class="main-headline">
+                <span class="white">PROTEÇÃO</span>
+                <span class="gradient">INTELIGENTE</span>
+            </h1>
+            <p class="sub-headline">
+                <strong>DIEGO ROX</strong> apresenta: Associe-se ao maior clube de benefícios e 
+                proteção veicular do Brasil. Economize até 70% comparado às 
+                seguradoras tradicionais e tenha acesso a descontos exclusivos 
+                em mais de 30.000 estabelecimentos parceiros.
+            </p>
+            <a href="#contato" class="cta-button">
+                Quero Me Associar
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Metrics Section -->
+    <section class="metrics-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Resultados <span>Reais</span></h2>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-number">5.000+</div>
+                    <div class="metric-label">Associados Protegidos</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">70%</div>
+                    <div class="metric-label">Economia Média</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">30k+</div>
+                    <div class="metric-label">Parceiros com Desconto</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">24h</div>
+                    <div class="metric-label">Assistência Disponível</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Benefícios <span>Exclusivos</span></h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>Proteção Veicular Completa</h3>
+                    <p>Cobertura contra roubo, furto, colisão, incêndio e fenômenos naturais. Proteção total para seu veículo com valores justos.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🩺</div>
+                    <h3>Telemedicina 24h</h3>
+                    <p>Consultas médicas online ilimitadas com especialistas. Atendimento para você e toda sua família, sem filas.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💊</div>
+                    <h3>Descontos em Farmácias</h3>
+                    <p>Até 80% de desconto em medicamentos nas principais redes: Drogasil, Droga Raia, Pague Menos e mais.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🍽️</div>
+                    <h3>Gastronomia</h3>
+                    <p>Descontos em restaurantes, churrascarias, pizzarias e delivery. Economia em todas as suas refeições.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎬</div>
+                    <h3>Entretenimento</h3>
+                    <p>Cinemas, parques, shows e eventos com preços especiais. Diversão garantida para toda a família.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⛽</div>
+                    <h3>Combustível</h3>
+                    <p>Cashback e descontos em postos de combustível parceiros. Economia toda vez que abastecer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Rota Brasil vs <span>Seguradoras</span></h2>
+            </div>
+            <div class="comparison-table">
+                <div class="table-header">
+                    <span>Recurso</span>
+                    <span>Rota Brasil</span>
+                    <span>Seguradoras</span>
+                </div>
+                <div class="table-row">
+                    <span>Preço Justo (até 70% menor)</span>
+                    <span class="check">✓</span>
+                    <span class="cross">✗</span>
+                </div>
+                <div class="table-row">
+                    <span>Clube de Benefícios Incluso</span>
+                    <span class="check">✓</span>
+                    <span class="cross">✗</span>
+                </div>
+                <div class="table-row">
+                    <span>Telemedicina 24h</span>
+                    <span class="check">✓</span>
+                    <span class="cross">✗</span>
+                </div>
+                <div class="table-row">
+                    <span>Assistência 24h Nacional</span>
+                    <span class="check">✓</span>
+                    <span class="check">✓</span>
+                </div>
+                <div class="table-row">
+                    <span>Sem Análise de Perfil Restritiva</span>
+                    <span class="check">✓</span>
+                    <span class="cross">✗</span>
+                </div>
+                <div class="table-row">
+                    <span>+30.000 Parceiros com Desconto</span>
+                    <span class="check">✓</span>
+                    <span class="cross">✗</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Perguntas <span>Frequentes</span></h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>Qual a diferença entre proteção veicular e seguro?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A proteção veicular é oferecida por associações sem fins lucrativos, onde os custos são rateados entre os associados. Isso permite valores até 70% menores que seguradoras tradicionais, mantendo coberturas similares e ainda oferecendo benefícios extras como clube de vantagens.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>Quais veículos podem ser protegidos?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Protegemos carros, motos, caminhões, vans e utilitários de qualquer ano e modelo. Não fazemos análise restritiva de perfil como as seguradoras tradicionais.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>Como funciona o clube de benefícios?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ao se associar, você recebe acesso imediato a mais de 30.000 estabelecimentos parceiros com descontos exclusivos em farmácias, restaurantes, cinemas, academias, postos de combustível e muito mais.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h4>Qual o prazo para acionar a proteção?</h4>
+                        <div class="faq-icon">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Após a aprovação cadastral e vistoria do veículo, a proteção entra em vigor em até 24 horas. O acionamento em caso de sinistro pode ser feito 24h por dia através da nossa central de atendimento.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Consultant Section -->
+    <section class="consultant-section" id="contato">
+        <div class="container">
+            <h2 class="consultant-title"><span>DIEGO ROX</span> - Seu Consultor</h2>
+            <p class="consultant-text">
+                DIEGO ROX é consultor oficial do CLUBE DE BENEFÍCIOS DE PROTEÇÃO VEICULAR ROTA BRASIL. 
+                Com atendimento personalizado, DIEGO ROX ajuda você a encontrar a melhor 
+                proteção para seu veículo com economia de até 70%.
+            </p>
+            <div class="consultant-contact">
+                <a href="tel:1152837806" class="contact-link">
+                    📞 (11) 5283-7806
+                </a>
+                <a href="mailto:MARCIORTCOSTA@HOTMAIL.COM" class="contact-link">
+                    ✉️ marciortcosta@hotmail.com
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Corporate Section -->
+    <section class="corporate-section">
+        <div class="corporate-grid">
+            <div class="corporate-item">
+                <h5>Razão Social</h5>
+                <p>58.900.387 MARCIO REINALDO TEIXEIRA DA COSTA</p>
+            </div>
+            <div class="corporate-item">
+                <h5>CNPJ</h5>
+                <p>58.900.387/0001-12</p>
+            </div>
+            <div class="corporate-item">
+                <h5>Endereço</h5>
+                <p>R Fortaleza, 611<br>Centro - Cascavel/PR<br>CEP: 85.810-050</p>
+            </div>
+            <div class="corporate-item">
+                <h5>Contato - Diego Rox</h5>
+                <p>
+                    <a href="tel:1152837806">(11) 5283-7806</a><br>
+                    <a href="mailto:MARCIORTCOSTA@HOTMAIL.COM">marciortcosta@hotmail.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p class="footer-company">
+            <strong>DIEGO ROX</strong> - Consultor Oficial<br>
+            58.900.387 MARCIO REINALDO TEIXEIRA DA COSTA<br>
+            CNPJ: 58.900.387/0001-12<br>
+            R Fortaleza, 611 - Centro - Cascavel/PR - CEP: 85.810-050<br>
+            Telefone: (11) 5283-7806 | E-mail: marciortcosta@hotmail.com
+        </p>
+        <p class="footer-copyright">
+            © 2020-2025 <strong>DIEGO ROX</strong> - Rota Brasil | Todos os direitos reservados<br>
+            O clube de benefícios é gerenciado pela associação e todos os percentuais de desconto são de responsabilidade dos parceiros
+        </p>
+    </footer>
+    
+    <script>
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                faq.classList.remove('active');
+            });
+            
+            // Open clicked if wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+        
+        // Smooth reveal on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.metric-card, .benefit-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
